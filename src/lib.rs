@@ -49,9 +49,11 @@ pub fn open(dbpath: &str) -> Result<Connection, rusqlite::Error> {
     Ok(Connection::open(&dbpath)?)
 }
 
+/*
 pub fn open_in_memory() -> Result<Connection, rusqlite::Error> {
     Ok(Connection::open_in_memory()?)
 }
+*/
 
 /*
 use database::{open, Database};
