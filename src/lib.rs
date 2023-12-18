@@ -1,60 +1,5 @@
-/*
- * This file is part of PROJECT.
- *
- * PROJECT is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * PROJECT is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with PROJECT.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 use rusqlite::{params, Connection};
 use std::collections::HashMap;
-
-/*
-use std::any::Any;
-
-pub struct Database {
-    rows: std::vec::IntoIter<HashMap<String, Box<dyn Any>>>,
-}
-
-impl Database {
-    pub fn fetch(conn: &Connection, query: &str) -> Self {
-        let mut stml = conn.prepare(query).unwrap();
-        let column_names: Vec<String> = stml.column_names().into_iter().map(|s| s.to_string()).collect();
-        let rows = stml.query_map(params![], |row| {
-            let mut map = HashMap::new();
-            for (i,col) in column_names.iter().enumerate() {
-                let value = row.get::<_, rusqlite::types::Value>(i)?;
-                let value_any: Box<dyn Any> = match value {
-                    rusqlite::types::Value::Null => Box::new(()),
-                    rusqlite::types::Value::Integer(i) => Box::<dyn Any>::from(i),
-                    rusqlite::types::Value::Real(f) => Box::<dyn Any>::from(f),
-                    rusqlite::types::Value::Text(s) => Box::<dyn Any>::from(s),
-                    //rusqlite::types::Value::Blob(b) => Box::<dyn Any>::from(b.to_vec()),
-                }
-                map.insert(col.to_string(), value_any);
-            }
-            Ok(map)
-        })
-        .unwrap()
-        .map(|x| x.unwrap())
-        .collect::<Vec<_>>()
-        .into_iter();
-    Self { rows }
-    }
-}
-*/
-/*
- * 何とも釈然としない仕様だけどひとまず動くことが大切と思い。
- */
 
 pub struct Database {
     rows: std::vec::IntoIter<HashMap<String, String>>,
@@ -104,6 +49,9 @@ pub fn open(dbpath: &str) -> Result<Connection, rusqlite::Error> {
     Ok(Connection::open(&dbpath)?)
 }
 
+pub fn open_in_memory(dbpath: &str) -> Result<Connection, rusqlite::Error> {
+    Ok(Connection::open_in_memory(&dbpath)?)
+}
 
 /*
 use database::{open, Database};
